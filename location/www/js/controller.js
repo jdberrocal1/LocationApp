@@ -15,6 +15,8 @@ angular.module('starter.controllers', ['ionic'])
     var posOptions = {timeout: 3000, enableHighAccuracy: true};
     var flag=false;
 
+
+
     $scope.onTimeout = function(){
       $cordovaGeolocation.getCurrentPosition(posOptions)
         .then(function (position) {
@@ -25,15 +27,16 @@ angular.module('starter.controllers', ['ionic'])
             center: myLatlng
           };
           if(!flag) {
-            map = new google.maps.Map(document.getElementById("map"), mapOptions);
+            $scope.map = new google.maps.Map(document.getElementById("map"), mapOptions);
             flag=true;
           }else{
             marker.setMap(null);
+            $scope.map.setCenter(myLatlng);
           }
 
           marker = new google.maps.Marker({
             position: myLatlng,
-            map: map,
+            map: $scope.map,
             draggable:true
           });
 
